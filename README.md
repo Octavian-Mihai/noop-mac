@@ -164,6 +164,7 @@ from **their own device**, on a machine **they** control.
 - [Features](#features)
 - [Platform status](#platform-status)
 - [Architecture](#architecture)
+- [Package layout](#package-layout)
 - [Quickstart (macOS)](#quickstart-macos)
 - [How your data flows](#how-your-data-flows)
 - [Privacy](#privacy)
@@ -317,7 +318,7 @@ needs a little data before everything fills in:
 
 ---
 
-## Architecture
+## Package layout
 
 The repository is split into platform-pure Swift packages plus a macOS app target.
 All packages declare both `.iOS(.v16)` and `.macOS(.v13)`; framework-specific UI is
@@ -446,21 +447,7 @@ cd Packages/WhoopProtocol && swift build && swift test
 
 ## How your data flows
 
-```
-WHOOP strap ──BLE──▶ Strand/BLE + Strand/Collect ──▶ WhoopProtocol (decode)
-                                                          │
-WHOOP CSV  ─┐                                             ▼
-Apple Health├─▶ StrandImport (parse) ───────────▶ WhoopStore (local SQLite)
- export.xml ─┘                                            │
-                                                          ▼
-                                            StrandAnalytics (recovery/strain/
-                                            HRV/sleep, on-device)
-                                                          │
-                                                          ▼
-                                          Strand (SwiftUI) + StrandDesign
-```
-
-Every arrow stays on your machine.
+See the [architecture diagram](#architecture) above. Every arrow stays on your machine.
 
 ---
 
